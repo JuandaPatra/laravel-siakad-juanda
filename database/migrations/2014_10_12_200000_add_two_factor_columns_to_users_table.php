@@ -26,6 +26,8 @@ return new class extends Migration
                     ->after('two_factor_recovery_codes')
                     ->nullable();
             }
+
+           
         });
     }
 
@@ -41,6 +43,8 @@ return new class extends Migration
             ], Fortify::confirmsTwoFactorAuthentication() ? [
                 'two_factor_confirmed_at',
             ] : []));
+
+           
         });
     }
 };

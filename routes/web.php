@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +15,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/dashboard-general-dashboard');
+// Route::redirect('/', '/dashboard-general-dashboard');
+Route::get('/', function () {
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
-})->middleware('auth');
+    if(Auth::user()){
+        return redirect()->to('/dashboard');
+    }
+
+    return redirect()->to('/login');
+    
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
+    })->middleware('auth');
+
+    Route::resource('/user', UserController::class);
+    
+});
+
 
 // Dashboard
 Route::get('/dashboard-general-dashboard', function () {
