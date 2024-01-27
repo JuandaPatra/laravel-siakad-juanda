@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\LecturerController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +35,9 @@ Route::middleware(['auth'])->group(function () {
     })->middleware('auth');
 
     Route::resource('/user', UserController::class);
-    
+    Route::resource('lecturer', LecturerController::class);
+    Route::resource('subject', SubjectController::class);
+    Route::resource('schedules', ScheduleController::class);
 });
 
 

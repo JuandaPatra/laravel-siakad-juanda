@@ -18,7 +18,12 @@ class SubjectFactory extends Factory
     {
         return [
             'title'         => fake()->word(),
-            'lecturer_id'   => 11
+            'lecturer_id'   => 11,
+            'semester'      => 'Ganjil',
+            'academic_year' => '2022/2023',
+            'sks'           => 3,
+            'code'          => fake()->word(),
+            'description'   => fake()->paragraph(3)
         ];
     }
 }

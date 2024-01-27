@@ -21,6 +21,7 @@ class UserController extends Controller
                 })
                 
                 ->select('id', 'name', 'email', 'phone', DB::raw('DATE_FORMAT(created_at,"%d, %M, %Y") as created_at'))
+                ->where('roles', '=', 'mahasiswa')
                 ->paginate(10)
                 ;
 
