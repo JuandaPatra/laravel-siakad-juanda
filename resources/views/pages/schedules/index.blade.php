@@ -11,7 +11,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Lecturer</h1>
+            <h1>All Users</h1>
 
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
@@ -23,7 +23,7 @@
         @include('components.alerts.alert-success')
         <div class="section-body">
             <h2 class="section-title">Posts</h2>
-            <div class="btn btn-primary text-white"><a href="{{route('lecturer.create')}}" class="text-white">Create User</a></div>
+            <div class="btn btn-primary text-white"><a href="{{route('subject.create')}}" class="text-white">Create User</a></div>
 
             <div class="row mt-4">
                 <div class="col-12">
@@ -48,36 +48,33 @@
                             <div class="table-responsive">
                                 <table class="table-striped table">
                                     <tr>
-                                        <th class="pt-2 text-center">
-                                            <div class="custom-checkbox custom-checkbox-table custom-control">
+                                        <th class="pt-2">
+                                            {{-- <div class="custom-checkbox custom-checkbox-table custom-control">
                                                 <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
                                                 <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                                            </div>
+                                            </div> --}}
+                                            Subject
                                         </th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Created At</th>
-                                        <th>Status</th>
+                                        <th>SKS</th>
+                                        <th>Lecturer</th>
+                                        <th>Semester</th>
+                                        <th>Tahun Ajaran</th>
+                                        <th>Jam</th>
+                                        <th>Ruangan</th>
+                                        {{-- <th></th> --}}
+                                        <th>Code</th>
+                                        {{-- <th>Action</th> --}}
                                     </tr>
 
-                                    {{--
-                                         --}}
-                                    @foreach($users as $user)
+                                    @foreach($schedules as $schedule)
                                     <tr>
-                                        <td>
-                                            <div class="custom-checkbox custom-control">
-                                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-2">
-                                                <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td>{{$user->name}}
+                                        <td>{{$schedule->subject->title}}
                                             <div class="table-links">
                                                 <!-- <a href="#">View</a> -->
                                                 <div class="bullet"></div>
-                                                <a href="{{ route('user.edit',$user->id) }}">Edit</a>
+                                                <a href="{{ route('user.edit',$schedule->id) }}">Edit</a>
                                                 <!-- <div class="bullet"></div> -->
-                                                <form action="{{ route('user.destroy',$user->id) }}" method="post">
+                                                <form action="{{ route('user.destroy',$schedule->id) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button  class="text-danger" data-toggle="tooltip" title='Delete' style="border:none;background:transparent;">Delete</button>
@@ -87,30 +84,36 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="#">{{$user->email}}</a>
+                                            <a href="#">{{$schedule->subject->sks}}</a>
                                         </td>
                                         <td>
                                             <a href="#">
-                                                <!-- <img alt="image"
+                                                 {{-- <img alt="image"
                                                         src="{{ asset('img/avatar/avatar-5.png') }}"
                                                         class="rounded-circle"
                                                         width="35"
                                                         data-toggle="title"
-                                                        title=""> -->
-                                                <div class="d-inline-block ml-1">{{$user->phone}}</div>
+                                                        title="">    --}}
+                                                        {{$schedule->subject->lecturer->name}}
+                                                
                                             </a>
                                         </td>
-                                        <td>{{$user->created_at}}</td>
+                                        {{-- <td>{{$schedule->subject->lecturer->name}}</td> --}}
+                                        <td>{{$schedule->semester}}</td>
+                                        <td>{{$schedule->tahun_akademik}}</td>
+                                        <td>{{$schedule->jam_mulai}}</td>
+                                        <td>{{$schedule->ruangan}}</td>
                                         <td>
-                                            <div class="badge badge-primary">Published</div>
+                                            <a href="{{route('input-qrcode', $schedule)}}" class="btn btn-primary">Generate Code</a>
                                         </td>
+                                       
                                     </tr>
                                     @endforeach
 
                                 </table>
                             </div>
                             <div class="float-right">
-                                {{$users->withQueryString()->links()}}
+                                {{$schedules->withQueryString()->links()}}
                                 <!-- <nav>
                                         <ul class="pagination">
                                             <li class="page-item disabled">

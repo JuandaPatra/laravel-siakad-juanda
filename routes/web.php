@@ -29,16 +29,27 @@ Route::get('/', function () {
     
 });
 
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
     })->middleware('auth');
 
     Route::resource('/user', UserController::class);
+    
     Route::resource('lecturer', LecturerController::class);
+    Route::get('/lecturer-option',[SubjectController::class, 'option'])->name('subject.option');
     Route::resource('subject', SubjectController::class);
+    Route::get('/schedules/input-qrcode/{schedule}', [ScheduleController::class, 'generateCode'])->name('input-qrcode');
+    Route::put('/schedules/generate-qrcode/{schedule}', [ScheduleController::class, 'generateQR'])->name('generate-qrcode');
+    Route::get('/schedules/show-qrcode/{schedule}',[ScheduleController::class, 'showQRCode'])->name('show-qrcode');
     Route::resource('schedules', ScheduleController::class);
+
+    
 });
+
+
 
 
 // Dashboard
@@ -48,6 +59,8 @@ Route::get('/dashboard-general-dashboard', function () {
 Route::get('/dashboard-ecommerce-dashboard', function () {
     return view('pages.dashboard-ecommerce-dashboard', ['type_menu' => 'dashboard']);
 });
+
+
 
 
 // Layout

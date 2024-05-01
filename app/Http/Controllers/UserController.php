@@ -115,7 +115,6 @@ class UserController extends Controller
      */
     public function update(Request $request, int $id)
     {
-
         $validator = Validator::make(
             $request->all(),
             [
@@ -135,7 +134,7 @@ class UserController extends Controller
             // return $validator->fails();
             // return redirect()->back()->withInput($request->all())->withErrors($validator);
 
-            return redirect()->back()->with('failed', 'failed X')->withInput($request->all());
+            return redirect()->back()->with('failed', $validator->fails())->withInput($request->all());
         }
         // proses insert
 
@@ -148,7 +147,7 @@ class UserController extends Controller
                 'name'              =>  $request->name,
                 'phone'             =>  $request->phone,
                 'email'             =>  $request->email,
-                'password'          =>  bcrypt($request->password),
+                // 'password'          =>  bcrypt($request->password),
                 'roles'             => $request->roles,
                 'address'           => $request->address
 

@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
+
+    public function option(Request $request){
+        $users = User::where('name','like','%'.$request->q.'%')->get();
+    return response()->json($users, 200);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -32,7 +39,10 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.subjects.create', [
+            'type_menu' => 'Dashboard',
+            'type_detail' => 'Create'
+        ]);
     }
 
     /**
@@ -74,4 +84,6 @@ class SubjectController extends Controller
     {
         //
     }
+
+    
 }

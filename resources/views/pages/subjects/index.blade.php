@@ -23,7 +23,7 @@
         @include('components.alerts.alert-success')
         <div class="section-body">
             <h2 class="section-title">Posts</h2>
-            <div class="btn btn-primary text-white"><a href="{{route('user.create')}}" class="text-white">Create User</a></div>
+            <div class="btn btn-primary text-white"><a href="{{route('subject.create')}}" class="text-white">Create User</a></div>
 
             <div class="row mt-4">
                 <div class="col-12">
